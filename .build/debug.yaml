@@ -1,0 +1,61 @@
+client:
+  name: basic
+tools: {}
+targets:
+  "PackageStructure": ["<PackageStructure>"]
+  "Simple-debug.exe": ["<Simple-debug.exe>"]
+  "Simple-debug.module": ["<Simple-debug.module>"]
+  "main": ["<Simple-debug.exe>","<Simple-debug.module>"]
+  "test": ["<Simple-debug.exe>","<Simple-debug.module>"]
+default: "main"
+nodes:
+  "/home/muqadam-sabir/CS-II/Projects/Selection Sort/":
+    is-directory-structure: true
+commands:
+  "/home/muqadam-sabir/CS-II/Projects/Selection Sort/.build/x86_64-unknown-linux-gnu/debug/Simple.build/Simple.swiftmodule.o":
+    tool: shell
+    inputs: ["/home/muqadam-sabir/CS-II/Projects/Selection Sort/.build/x86_64-unknown-linux-gnu/debug/Simple.build/Simple.swiftmodule"]
+    outputs: ["/home/muqadam-sabir/CS-II/Projects/Selection Sort/.build/x86_64-unknown-linux-gnu/debug/Simple.build/Simple.swiftmodule.o"]
+    description: "Wrapping AST for Simple for debugging"
+    args: ["/opt/swift-5.6.1-RELEASE-ubuntu20.04/usr/bin/swiftc","-modulewrap","/home/muqadam-sabir/CS-II/Projects/Selection Sort/.build/x86_64-unknown-linux-gnu/debug/Simple.build/Simple.swiftmodule","-o","/home/muqadam-sabir/CS-II/Projects/Selection Sort/.build/x86_64-unknown-linux-gnu/debug/Simple.build/Simple.swiftmodule.o","-target","x86_64-unknown-linux-gnu"]
+
+  "<Simple-debug.exe>":
+    tool: phony
+    inputs: ["/home/muqadam-sabir/CS-II/Projects/Selection Sort/.build/x86_64-unknown-linux-gnu/debug/Simple"]
+    outputs: ["<Simple-debug.exe>"]
+
+  "<Simple-debug.module>":
+    tool: phony
+    inputs: ["/home/muqadam-sabir/CS-II/Projects/Selection Sort/.build/x86_64-unknown-linux-gnu/debug/Simple.build/main.swift.o","/home/muqadam-sabir/CS-II/Projects/Selection Sort/.build/x86_64-unknown-linux-gnu/debug/Simple.build/Simple.swiftmodule"]
+    outputs: ["<Simple-debug.module>"]
+
+  "C.Simple-debug.exe":
+    tool: shell
+    inputs: ["/home/muqadam-sabir/CS-II/Projects/Selection Sort/.build/x86_64-unknown-linux-gnu/debug/Simple.build/Simple.swiftmodule.o","/home/muqadam-sabir/CS-II/Projects/Selection Sort/.build/x86_64-unknown-linux-gnu/debug/Simple.build/main.swift.o"]
+    outputs: ["/home/muqadam-sabir/CS-II/Projects/Selection Sort/.build/x86_64-unknown-linux-gnu/debug/Simple"]
+    description: "Linking ./.build/x86_64-unknown-linux-gnu/debug/Simple"
+    args: ["/opt/swift-5.6.1-RELEASE-ubuntu20.04/usr/bin/swiftc","-L","/home/muqadam-sabir/CS-II/Projects/Selection Sort/.build/x86_64-unknown-linux-gnu/debug","-o","/home/muqadam-sabir/CS-II/Projects/Selection Sort/.build/x86_64-unknown-linux-gnu/debug/Simple","-module-name","Simple","-emit-executable","-Xlinker","-rpath=$ORIGIN","@/home/muqadam-sabir/CS-II/Projects/Selection Sort/.build/x86_64-unknown-linux-gnu/debug/Simple.product/Objects.LinkFileList","-target","x86_64-unknown-linux-gnu","-L","/opt/swift-5.6.1-RELEASE-ubuntu20.04/usr/lib"]
+
+  "C.Simple-debug.module":
+    tool: swift-compiler
+    inputs: ["/home/muqadam-sabir/CS-II/Projects/Selection Sort/main.swift"]
+    outputs: ["/home/muqadam-sabir/CS-II/Projects/Selection Sort/.build/x86_64-unknown-linux-gnu/debug/Simple.build/main.swift.o","/home/muqadam-sabir/CS-II/Projects/Selection Sort/.build/x86_64-unknown-linux-gnu/debug/Simple.build/Simple.swiftmodule"]
+    executable: "/opt/swift-5.6.1-RELEASE-ubuntu20.04/usr/bin/swiftc"
+    module-name: "Simple"
+    module-output-path: "/home/muqadam-sabir/CS-II/Projects/Selection Sort/.build/x86_64-unknown-linux-gnu/debug/Simple.build/Simple.swiftmodule"
+    import-paths: ["/home/muqadam-sabir/CS-II/Projects/Selection Sort/.build/x86_64-unknown-linux-gnu/debug"]
+    temps-path: "/home/muqadam-sabir/CS-II/Projects/Selection Sort/.build/x86_64-unknown-linux-gnu/debug/Simple.build"
+    objects: ["/home/muqadam-sabir/CS-II/Projects/Selection Sort/.build/x86_64-unknown-linux-gnu/debug/Simple.build/main.swift.o"]
+    other-args: ["-target","x86_64-unknown-linux-gnu","-swift-version","5","-enable-batch-mode","-index-store-path","/home/muqadam-sabir/CS-II/Projects/Selection Sort/.build/x86_64-unknown-linux-gnu/debug/index/store","-Onone","-enable-testing","-g","-j8","-DSWIFT_PACKAGE","-DDEBUG","-module-cache-path","/home/muqadam-sabir/CS-II/Projects/Selection Sort/.build/x86_64-unknown-linux-gnu/debug/ModuleCache","-parseable-output","-color-diagnostics"]
+    sources: ["/home/muqadam-sabir/CS-II/Projects/Selection Sort/main.swift"]
+    is-library: false
+    enable-whole-module-optimization: false
+    num-threads: 8
+
+  "PackageStructure":
+    tool: package-structure-tool
+    inputs: ["/home/muqadam-sabir/CS-II/Projects/Selection Sort/","/home/muqadam-sabir/CS-II/Projects/Selection Sort/Package.swift","/home/muqadam-sabir/CS-II/Projects/Selection Sort/Package.resolved"]
+    outputs: ["<PackageStructure>"]
+    description: "Planning build"
+    allow-missing-inputs: true
+

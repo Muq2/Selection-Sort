@@ -1,0 +1,46 @@
+
+//let unsortedIntegers = ["cat", "dog", "apple", "eat", "ball"]
+
+
+// Add your code below:
+
+var array = [String]()// = unsortedIntegers
+
+while let line = readLine() {
+    array.append(line)
+}
+
+func swap(integers:inout [String], firstIndex: Int, secondIndex: Int){
+    let heldValue = integers[firstIndex]
+    integers[firstIndex] = integers[secondIndex]
+    integers[secondIndex] = heldValue
+}
+
+func selectionSort(array:inout [String]){
+
+    var smallest = 0
+    var pass = 0
+    var totalSwaps = 0
+    print("Pass: \(pass), Swaps: 0/0, Array: \(array)")
+    for i in 0..<array.count-1{
+        smallest = i
+        pass += 1
+
+        var swaps = 0
+        for j in i..<array.count {
+            if (array[j] < array[smallest]){
+                smallest = j
+            }
+        }
+
+        swap(integers:&array, firstIndex:i, secondIndex:smallest)
+        swaps += 1
+        totalSwaps += swaps
+        
+        print("Pass: \(pass), Swaps: \(swaps)/\(totalSwaps), Array: \(array)")
+    }
+    
+    
+}
+
+selectionSort(array: &array)
